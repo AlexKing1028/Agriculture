@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +14,19 @@ import java.util.List;
 public class CustomAdatper extends BaseAdapter{
     List<Item> data;
     LayoutInflater inflater;
+
+    public CustomAdatper(LayoutInflater inflater){
+        data=new ArrayList<Item>();
+        this.inflater=inflater;
+    }
+
+    public void clear(){
+        data.clear();
+    }
+
+    public void addAll(List<Item> array){
+        data.addAll(array);
+    }
 
     @Override
     public int getCount() {
@@ -34,11 +48,11 @@ public class CustomAdatper extends BaseAdapter{
         Item item=data.get(position);
         if (convertView == null){
             ItemViewHolder viewHolder=ItemViewHolder.getItemViewHolderFactory(item.type);
-            convertView=viewHolder.initalize(item,inflater);
+            convertView=viewHolder.initialize(item, inflater);
             convertView.setTag(viewHolder);
         }else {
             ItemViewHolder viewHolder=(ItemViewHolder)convertView.getTag();
-            viewHolder.initalize(item);
+            viewHolder.initialize(item);
         }
         return convertView;
     }

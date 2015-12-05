@@ -17,6 +17,8 @@ import android.widget.ListView;
 import com.example.redrock.agriculture.Presenter.InfoListPresenter;
 import com.example.redrock.agriculture.Presenter.InfoListPresenterImp;
 import com.example.redrock.agriculture.R;
+import com.example.redrock.agriculture.Tools.CustomAdatper;
+import com.example.redrock.agriculture.Tools.Item;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,7 +44,7 @@ public class InfoListFragment extends Fragment implements InfoListPresenter.Info
 
     private InfoListPresenter infoListPresenter;
 
-    private ArrayAdapter<String> adapter;
+    private CustomAdatper adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ListView listView;
     private Handler mhandler = new Handler() {
@@ -52,7 +54,8 @@ public class InfoListFragment extends Fragment implements InfoListPresenter.Info
             switch (msg.what) {
                 case 1:
                     Bundle bundle=msg.getData();
-                    setInfoListData(bundle.getStringArrayList("data"),bundle.getInt("mode"));
+                    ArrayList data=bundle.getParcelableArrayList("data");
+                    setInfoListData(data,bundle.getInt("mode"));
                     adapter.notifyDataSetChanged();
                     swipeRefreshLayout.setRefreshing(false);
                     break;
@@ -62,17 +65,17 @@ public class InfoListFragment extends Fragment implements InfoListPresenter.Info
     };
 
     @Override
-    public void notifyDataChangeReady(ArrayList<String> data, int MODE){
+    public void notifyDataChangeReady(ArrayList<Item> data, int MODE){
         Message msg=new Message();
         Bundle bundle=new Bundle();
-        bundle.putStringArrayList("data",data);
+        bundle.putParcelableArrayList("data",data);
         bundle.putInt("mode",MODE);
         msg.setData(bundle);
         msg.what=1;
         mhandler.sendMessage(msg);
     }
 
-    private void setInfoListData(ArrayList<String> data, int MODE){
+    private void setInfoListData(ArrayList<Item> data, int MODE){
         switch (MODE){
             case 0:
                 adapter.clear();
@@ -128,7 +131,7 @@ public class InfoListFragment extends Fragment implements InfoListPresenter.Info
         swipeRefreshLayout.setProgressViewEndTarget(true, 100);
         swipeRefreshLayout.setOnRefreshListener(this);
         listView = (ListView) rootView.findViewById(R.id.list_main_content);
-        adapter=new ArrayAdapter<String>(this.getActivity(),R.layout.one_info_item,R.id.one_info_item_title,new ArrayList<String>());
+        adapter=new CustomAdatper(inflater);
         listView.setAdapter(adapter);
         onRefresh();
         return rootView;

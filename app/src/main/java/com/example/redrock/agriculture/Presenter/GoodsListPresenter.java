@@ -1,5 +1,7 @@
 package com.example.redrock.agriculture.Presenter;
 
+import com.example.redrock.agriculture.Tools.Item;
+
 import java.util.ArrayList;
 
 /**
@@ -9,6 +11,6 @@ public interface GoodsListPresenter {
     void refreshData();
 
     interface GoodsListView {
-        void notifyDataChangeReady(ArrayList<String> data, int MODE);
+        void notifyDataChangeReady(ArrayList<Item> data, int MODE);
     }
 }

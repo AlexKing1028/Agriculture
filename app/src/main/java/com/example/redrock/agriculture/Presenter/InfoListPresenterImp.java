@@ -1,6 +1,7 @@
 package com.example.redrock.agriculture.Presenter;
 
 import com.example.redrock.agriculture.Model.InfoListDataModel;
+import com.example.redrock.agriculture.Tools.Item;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class InfoListPresenterImp implements InfoListPresenter, InfoListDataMode
     }
 
     @Override
-    public void onFetch(ArrayList<String> data) {
+    public void onFetch(ArrayList<Item> data) {
         infoListView.notifyDataChangeReady(data, 0);
     }
 }
