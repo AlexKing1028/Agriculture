@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
@@ -16,15 +17,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.example.redrock.agriculture.Fragment.GoodsListFragment;
 import com.example.redrock.agriculture.Fragment.InfoListFragment;
+import com.example.redrock.agriculture.Fragment.UserCenterFragment;
+import com.example.redrock.agriculture.Model.InfoListDataModel;
 import com.example.redrock.agriculture.R;
 
 import java.util.Locale;
 import java.util.Random;
 
 
-public class MainActivity extends Activity implements ActionBar.TabListener, InfoListFragment.OnFragmentInteractionListener, GoodsListFragment.OnFragmentInteractionListener {
+public class MainActivity extends Activity implements ActionBar.TabListener, InfoListFragment.OnFragmentInteractionListener, GoodsListFragment.OnFragmentInteractionListener, UserCenterFragment.OnFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -173,9 +178,9 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Inf
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
             pages = new Fragment[PAGE_COUNT];
-            pages[0] = InfoListFragment.newInstance("", "");
-            pages[1] = GoodsListFragment.newInstance("", "");
-            pages[2] = PlaceholderFragment.newInstance(0);
+            pages[0] = GoodsListFragment.newInstance("", "");
+            pages[1] = InfoListFragment.newInstance("", "");
+            pages[2] = UserCenterFragment.newInstance("", "");
         }
 
         @Override

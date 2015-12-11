@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.redrock.agriculture.Fragment.InfoListFragment">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <com.example.redrock.agriculture.Tools.CustomSwipeToRefreshView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/swipelayout_main_content">
@@ -13,6 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </ListView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.example.redrock.agriculture.Tools.CustomSwipeToRefreshView>
 
 </FrameLayout>

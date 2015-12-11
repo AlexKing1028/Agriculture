@@ -3,8 +3,17 @@
     android:layout_height="match_parent"
     tools:context="com.example.redrock.agriculture.Fragment.UserCenterFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+   <android.support.v4.view.ViewPager
+       android:id="@+id/uer_center_viewpager"
+       android:layout_gravity="top"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+   </android.support.v4.view.ViewPager>
 
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/indicator"
+        android:padding="5dp"
+        android:layout_gravity="top"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
 </FrameLayout>

@@ -19,7 +19,7 @@ public class GoodsListPresenterImp implements GoodsListPresenter,InfoListDataMod
     }
     @Override
     public void refreshData() {
-        infoListDataModel.fetchInfoData(this);
+        infoListDataModel.fetchDataFromInternet(this);
     }
 
     @Override

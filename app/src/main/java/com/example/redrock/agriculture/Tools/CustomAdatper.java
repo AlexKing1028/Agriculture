@@ -1,9 +1,14 @@
 package com.example.redrock.agriculture.Tools;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,8 +69,8 @@ public class CustomAdatper extends BaseAdapter{
 
     @Override
     public int getItemViewType(int position){
-        return data.get(position).type;
+        return data.get(position).type-1;
     }
 
-    final static int TYPE_COUNT=1;
+    final static int TYPE_COUNT=3;
 }

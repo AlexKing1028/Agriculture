@@ -18,7 +18,9 @@ public class Item implements Parcelable {
             int type = source.readInt();
             switch (type) {
                 case 2:
-                    return new BreifPictureItem(source);
+                    return new BriefPictureItem(source);
+                case 3:
+                    return new PictureBannerItem(source);
                 default:
                     return new SimpleItem(source);
             }
@@ -73,17 +75,17 @@ public class Item implements Parcelable {
         }
     }
 
-    public static class BreifPictureItem extends Item {
+    public static class BriefPictureItem extends Item {
         public String info;
         public int imgSrc;
 
-        private BreifPictureItem(Parcel source) {
+        private BriefPictureItem(Parcel source) {
             super(source);
             info = source.readString();
             imgSrc = source.readInt();
         }
 
-        public BreifPictureItem(String title, String info, int imgSrc) {
+        public BriefPictureItem(String title, String info, int imgSrc) {
             super(title);
             type = 2;
             this.info = info;
@@ -98,5 +100,41 @@ public class Item implements Parcelable {
             dest.writeInt(imgSrc);
         }
 
+    }
+
+    public static class PictureBannerItem extends Item{
+        int img_size;
+        int titles_size;
+        int[] imgSrcs;
+        String[] titles;
+
+        private PictureBannerItem(Parcel source) {
+            super(source);
+            img_size=source.readInt();
+            imgSrcs=new int[img_size];
+            source.readIntArray(imgSrcs);
+            titles_size=source.readInt();
+            titles=new String[titles_size];
+            source.readStringArray(titles);
+        }
+
+        public PictureBannerItem(String title, int[] imgSrcs, String[] titles) {
+            super(title);
+            type = 3;
+            img_size=imgSrcs.length;
+            this.imgSrcs=imgSrcs;
+            titles_size=titles.length;
+            this.titles=titles;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            type = 3;
+            super.writeToParcel(dest, flags);
+            dest.writeInt(img_size);
+            dest.writeIntArray(imgSrcs);
+            dest.writeInt(titles_size);
+            dest.writeStringArray(titles);
+        }
     }
 }

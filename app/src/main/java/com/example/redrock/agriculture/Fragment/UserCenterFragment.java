@@ -4,11 +4,19 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.redrock.agriculture.R;
+import com.viewpagerindicator.CirclePageIndicator;
+import com.viewpagerindicator.TitlePageIndicator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +37,11 @@ public class UserCenterFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private ViewPager viewPager;
+    private List<View> viewList;
+    private List<String> titleList;
+    private PagerAdapter pagerAdapter;
 
     /**
      * Use this factory method to create a new instance of
@@ -65,7 +78,63 @@ public class UserCenterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_center, container, false);
+        View total=inflater.inflate(R.layout.fragment_user_center, container, false);
+        viewPager = (ViewPager)total.findViewById(R.id.uer_center_viewpager);
+        ImageView imageView1=new ImageView(getActivity());
+        ImageView imageView2=new ImageView(getActivity());
+        ImageView imageView3=new ImageView(getActivity());
+        imageView1.setImageResource(R.drawable.jiulaba);
+        imageView2.setImageResource(R.drawable.kakaxi);
+        imageView3.setImageResource(R.drawable.android_structue);
+        viewList=new ArrayList<>();
+        viewList.add(imageView1);
+        viewList.add(imageView2);
+        viewList.add(imageView3);
+
+        titleList=new ArrayList<>();
+        titleList.add("title1");
+        titleList.add("title2");
+        titleList.add("title3");
+        pagerAdapter=new MyViewPagerAdapter();
+        viewPager.setCurrentItem(0);
+        viewPager.setAdapter(pagerAdapter);
+        CirclePageIndicator indicator=(CirclePageIndicator)total.findViewById(R.id.indicator);
+        indicator.setViewPager(viewPager);
+        return total;
+    }
+
+    public class MyViewPagerAdapter extends PagerAdapter{
+        @Override
+        public int getCount() {
+            return titleList==null? 0 :titleList.size();
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view==object;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position,
+                                Object object) {
+            ((ViewPager) container).removeView(viewList.get(position));
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            ((ViewPager) container).addView(viewList.get(position));
+            return viewList.get(position);
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return super.getItemPosition(object);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titleList.get(position);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
