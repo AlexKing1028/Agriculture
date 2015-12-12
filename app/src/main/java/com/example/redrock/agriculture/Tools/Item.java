@@ -77,15 +77,15 @@ public class Item implements Parcelable {
 
     public static class BriefPictureItem extends Item {
         public String info;
-        public int imgSrc;
+        public String imgSrc;
 
         private BriefPictureItem(Parcel source) {
             super(source);
             info = source.readString();
-            imgSrc = source.readInt();
+            imgSrc = source.readString();
         }
 
-        public BriefPictureItem(String title, String info, int imgSrc) {
+        public BriefPictureItem(String title, String info, String imgSrc) {
             super(title);
             type = 2;
             this.info = info;
@@ -97,7 +97,7 @@ public class Item implements Parcelable {
             type = 1;
             super.writeToParcel(dest, flags);
             dest.writeString(info);
-            dest.writeInt(imgSrc);
+            dest.writeString(imgSrc);
         }
 
     }
@@ -105,20 +105,20 @@ public class Item implements Parcelable {
     public static class PictureBannerItem extends Item{
         int img_size;
         int titles_size;
-        int[] imgSrcs;
+        String[] imgSrcs;
         String[] titles;
 
         private PictureBannerItem(Parcel source) {
             super(source);
             img_size=source.readInt();
-            imgSrcs=new int[img_size];
-            source.readIntArray(imgSrcs);
+            imgSrcs=new String[img_size];
+            source.readStringArray(imgSrcs);
             titles_size=source.readInt();
             titles=new String[titles_size];
             source.readStringArray(titles);
         }
 
-        public PictureBannerItem(String title, int[] imgSrcs, String[] titles) {
+        public PictureBannerItem(String title, String[] imgSrcs, String[] titles) {
             super(title);
             type = 3;
             img_size=imgSrcs.length;
@@ -132,7 +132,7 @@ public class Item implements Parcelable {
             type = 3;
             super.writeToParcel(dest, flags);
             dest.writeInt(img_size);
-            dest.writeIntArray(imgSrcs);
+            dest.writeStringArray(imgSrcs);
             dest.writeInt(titles_size);
             dest.writeStringArray(titles);
         }

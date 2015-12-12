@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
+import com.example.redrock.agriculture.NetTools.SingletonRequestQueue;
 import com.example.redrock.agriculture.R;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -53,11 +55,14 @@ public abstract class ItemViewHolder {
             if (item instanceof Item.PictureBannerItem) {
                 Item.PictureBannerItem pictureBannerItem = (Item.PictureBannerItem) item;
                 ArrayList<View> views = new ArrayList<>();
-                int[] imgSrcs = pictureBannerItem.imgSrcs;
-                for (int srcid : imgSrcs) {
-                    ImageView view_tmp = new ImageView(viewPager.getContext());
-                    view_tmp.setImageResource(srcid);
+                String[] imgSrcs = pictureBannerItem.imgSrcs;
+                for (String imgSrc : imgSrcs) {
+                    NetworkImageView view_tmp = new NetworkImageView(viewPager.getContext());
                     view_tmp.setScaleType(ImageView.ScaleType.FIT_XY);
+                    view_tmp.setDefaultImageResId(R.drawable.loading);
+                    view_tmp.setErrorImageResId(R.drawable.error);
+                    view_tmp.setImageUrl(imgSrc,
+                            SingletonRequestQueue.getInstance(ContextUtil.getInstance()).getImageLoader());
                     views.add(view_tmp);
                 }
                 BannerViewPagerAdapter bannerViewPagerAdapter = new BannerViewPagerAdapter(views);
@@ -105,7 +110,7 @@ public abstract class ItemViewHolder {
     }
 
     public static class BriefPictureViewHolder extends ItemViewHolder {
-        ImageView pic;
+        NetworkImageView pic;
         TextView info;
 
         @Override
@@ -113,7 +118,7 @@ public abstract class ItemViewHolder {
             View convertView = inflater.inflate(LAYOUT_RESOUCE_MAP[item.type - 1], null);
             title = (TextView) convertView.findViewById(R.id.breif_picture_item_title);
             info = (TextView) convertView.findViewById(R.id.breif_picture_item_info);
-            pic = (ImageView) convertView.findViewById(R.id.breif_picture_item_pic);
+            pic = (NetworkImageView) convertView.findViewById(R.id.breif_picture_item_pic);
             initialize(item);
             return convertView;
         }
@@ -125,7 +130,12 @@ public abstract class ItemViewHolder {
             }
             if (item instanceof Item.BriefPictureItem) {
                 Item.BriefPictureItem briefPictureItem = (Item.BriefPictureItem) item;
-                if (pic != null) pic.setImageResource(briefPictureItem.imgSrc);
+                if (pic != null){
+                    pic.setDefaultImageResId(R.drawable.loading);
+                    pic.setErrorImageResId(R.drawable.error);
+                    pic.setImageUrl(briefPictureItem.imgSrc,
+                            SingletonRequestQueue.getInstance(ContextUtil.getInstance()).getImageLoader());
+                }
                 if (info != null) info.setText(briefPictureItem.info);
             }
         }

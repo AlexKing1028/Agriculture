@@ -22,7 +22,7 @@ public class InfoListDataModel {
             public void run() {
                 ArrayList<Item> result = new ArrayList<>();
 
-                int[] imgsrcs = {R.drawable.jiulaba, R.drawable.kakaxi, R.drawable.android_structue};
+                String[] imgsrcs = {"R.drawable.jiulaba", "R.drawable.kakaxi", "R.drawable.android_structue"};
                 String[] titles = {"1", "2", "3"};
                 Item.PictureBannerItem pictureBannerItem = new Item.PictureBannerItem("banner", imgsrcs, titles);
                 result.add(pictureBannerItem);
@@ -40,12 +40,12 @@ public class InfoListDataModel {
                     } else if (tmp == 2) {
                         String title = "title pic" + j + i;
                         String info = "this" + i + " is info" + j;
-                        Item.BriefPictureItem briefPictureItem = new Item.BriefPictureItem(title, info, R.drawable.jiulaba);
+                        Item.BriefPictureItem briefPictureItem = new Item.BriefPictureItem(title, info, "R.drawable.jiulaba");
                         result.add(briefPictureItem);
                     } else if (tmp == 3) {
                         String title = "title pic" + j + i;
                         String info = "this" + i + " is info" + j;
-                        Item.BriefPictureItem briefPictureItem = new Item.BriefPictureItem(title, info, R.drawable.kakaxi);
+                        Item.BriefPictureItem briefPictureItem = new Item.BriefPictureItem(title, info, "R.drawable.kakaxi");
                         result.add(briefPictureItem);
                     }
                 }

@@ -18,7 +18,7 @@ public class InfoListPresenterImp implements InfoListPresenter, InfoListDataMode
     }
     @Override
     public void refreshData() {
-        infoListDataModel.fetchInfoData(this);
+        infoListDataModel.fetchDataFromInternet(this);
     }
 
     @Override

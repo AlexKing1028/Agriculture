@@ -31,7 +31,8 @@ public class SingletonRequestQueue {
             public void putBitmap(String url, Bitmap bitmap) {
                 cache.put(url, bitmap);
             }
-        });
+        }
+        );
     }
 
     public static synchronized SingletonRequestQueue getInstance(Context context){

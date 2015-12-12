@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:padding="5dp">
 
-    <ImageView
+    <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/breif_picture_item_pic"
         android:layout_width="100dp"
         android:layout_height="80dp"
