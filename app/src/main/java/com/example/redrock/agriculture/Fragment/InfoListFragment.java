@@ -3,26 +3,22 @@ package com.example.redrock.agriculture.Fragment;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.redrock.agriculture.Presenter.InfoListPresenter;
 import com.example.redrock.agriculture.Presenter.InfoListPresenterImp;
 import com.example.redrock.agriculture.R;
-import com.example.redrock.agriculture.Tools.CustomAdatper;
-import com.example.redrock.agriculture.Tools.Item;
+import com.example.redrock.agriculture.widget.Adapter.RefreshAdapter;
+import com.example.redrock.agriculture.widget.ListItem.Item;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,7 +40,7 @@ public class InfoListFragment extends Fragment implements InfoListPresenter.Info
 
     private InfoListPresenter infoListPresenter;
 
-    private CustomAdatper adapter;
+    private RefreshAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ListView listView;
     private Handler mhandler = new Handler() {
@@ -127,11 +123,11 @@ public class InfoListFragment extends Fragment implements InfoListPresenter.Info
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_info_list, container, false);
-        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipelayout_main_content);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_layout_main_content);
         swipeRefreshLayout.setProgressViewEndTarget(true, 100);
         swipeRefreshLayout.setOnRefreshListener(this);
         listView = (ListView) rootView.findViewById(R.id.list_main_content);
-        adapter=new CustomAdatper(inflater);
+        adapter=new RefreshAdapter(inflater);
         listView.setAdapter(adapter);
         onRefresh();
         return rootView;

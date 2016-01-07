@@ -1,13 +1,15 @@
 package com.example.redrock.agriculture.Model;
 
 import com.android.volley.Response;
-import com.example.redrock.agriculture.Const.CommenConst;
+import com.example.redrock.agriculture.Const.CommonConst;
 import com.example.redrock.agriculture.NetTools.Deserialize.ItemListDeserializer;
-import com.example.redrock.agriculture.NetTools.GsonDeserializeRequest;
+import com.example.redrock.agriculture.NetTools.Request.GsonDeserializeRequest;
 import com.example.redrock.agriculture.NetTools.SingletonRequestQueue;
-import com.example.redrock.agriculture.R;
-import com.example.redrock.agriculture.Tools.ContextUtil;
-import com.example.redrock.agriculture.Tools.Item;
+import com.example.redrock.agriculture.Utils.ContextUtil;
+import com.example.redrock.agriculture.widget.ListItem.BriefPictureItem;
+import com.example.redrock.agriculture.widget.ListItem.Item;
+import com.example.redrock.agriculture.widget.ListItem.PictureBannerItem;
+import com.example.redrock.agriculture.widget.ListItem.SimpleItem;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -24,7 +26,7 @@ public class InfoListDataModel {
 
                 String[] imgsrcs = {"R.drawable.jiulaba", "R.drawable.kakaxi", "R.drawable.android_structue"};
                 String[] titles = {"1", "2", "3"};
-                Item.PictureBannerItem pictureBannerItem = new Item.PictureBannerItem("banner", imgsrcs, titles);
+                PictureBannerItem pictureBannerItem = new PictureBannerItem("banner", imgsrcs, titles);
                 result.add(pictureBannerItem);
 
 
@@ -35,17 +37,17 @@ public class InfoListDataModel {
                     if (tmp == 1) {
                         String title = "title" + j + i;
                         String info = "info" + j;
-                        Item.SimpleItem simpleItem = new Item.SimpleItem(title, info);
+                        SimpleItem simpleItem = new SimpleItem(title, info);
                         result.add(simpleItem);
                     } else if (tmp == 2) {
                         String title = "title pic" + j + i;
                         String info = "this" + i + " is info" + j;
-                        Item.BriefPictureItem briefPictureItem = new Item.BriefPictureItem(title, info, "R.drawable.jiulaba");
+                        BriefPictureItem briefPictureItem = new BriefPictureItem(title, info, "R.drawable.jiulaba");
                         result.add(briefPictureItem);
                     } else if (tmp == 3) {
                         String title = "title pic" + j + i;
                         String info = "this" + i + " is info" + j;
-                        Item.BriefPictureItem briefPictureItem = new Item.BriefPictureItem(title, info, "R.drawable.kakaxi");
+                        BriefPictureItem briefPictureItem = new BriefPictureItem(title, info, "R.drawable.kakaxi");
                         result.add(briefPictureItem);
                     }
                 }
@@ -62,7 +64,7 @@ public class InfoListDataModel {
 
     public void fetchDataFromInternet(final OnFetchListener onFetchListener) {
         SingletonRequestQueue.getInstance(ContextUtil.getInstance()).
-                addToRequestQueue(new GsonDeserializeRequest<ArrayList>(CommenConst.HOST + "/info", new ItemListDeserializer(), new Response.Listener<ArrayList>() {
+                addToRequestQueue(new GsonDeserializeRequest<ArrayList>(CommonConst.HOST + "/info", new ItemListDeserializer(), new Response.Listener<ArrayList>() {
                     @Override
                     public void onResponse(ArrayList response) {
                         onFetchListener.onFetch(response);

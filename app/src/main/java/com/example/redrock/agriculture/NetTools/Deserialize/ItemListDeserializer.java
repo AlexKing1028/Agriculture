@@ -1,6 +1,9 @@
 package com.example.redrock.agriculture.NetTools.Deserialize;
 
-import com.example.redrock.agriculture.Tools.Item;
+import com.example.redrock.agriculture.widget.ListItem.BriefPictureItem;
+import com.example.redrock.agriculture.widget.ListItem.Item;
+import com.example.redrock.agriculture.widget.ListItem.PictureBannerItem;
+import com.example.redrock.agriculture.widget.ListItem.SimpleItem;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -8,7 +11,6 @@ import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by REDROCK on 12/11/2015.
@@ -26,13 +28,13 @@ public class ItemListDeserializer extends Deserializer<ArrayList> {
             int type=jo.get("type").getAsInt();
             switch (type){
                 case 1:
-                    list.add(gson.fromJson(je, Item.SimpleItem.class));
+                    list.add(gson.fromJson(je, SimpleItem.class));
                     break;
                 case 2:
-                    list.add(gson.fromJson(je, Item.BriefPictureItem.class));
+                    list.add(gson.fromJson(je, BriefPictureItem.class));
                     break;
                 default:
-                    list.add(gson.fromJson(je, Item.PictureBannerItem.class));
+                    list.add(gson.fromJson(je, PictureBannerItem.class));
             }
         }
         return list;

@@ -10,14 +10,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.redrock.agriculture.Presenter.GoodsListPresenter;
 import com.example.redrock.agriculture.Presenter.GoodsListPresenterImp;
 import com.example.redrock.agriculture.R;
-import com.example.redrock.agriculture.Tools.CustomAdatper;
-import com.example.redrock.agriculture.Tools.Item;
+import com.example.redrock.agriculture.widget.Adapter.RefreshAdapter;
+import com.example.redrock.agriculture.widget.ListItem.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,7 @@ public class GoodsListFragment extends Fragment implements GoodsListPresenter.Go
 
     private GoodsListPresenter goodsListPresenter;
 
-    private CustomAdatper adapter;
+    private RefreshAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ListView listView;
     private Handler mhandler = new Handler() {
@@ -124,15 +123,15 @@ public class GoodsListFragment extends Fragment implements GoodsListPresenter.Go
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_goods_list, container, false);
-        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipelayout_main_content);
+        View rootView = inflater.inflate(R.layout.fragment_common_list, container, false);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_layout_main_content);
         swipeRefreshLayout.setProgressViewEndTarget(true, 100);
         swipeRefreshLayout.setOnRefreshListener(this);
         listView = (ListView) rootView.findViewById(R.id.list_main_content);
         /**
          * todo .. something amazing
          */
-        adapter=new CustomAdatper(inflater);
+        adapter=new RefreshAdapter(inflater);
         listView.setAdapter(adapter);
         onRefresh();
         return rootView;

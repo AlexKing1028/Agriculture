@@ -1,10 +1,9 @@
 package com.example.redrock.agriculture.Presenter;
 
 import com.example.redrock.agriculture.Model.InfoListDataModel;
-import com.example.redrock.agriculture.Tools.Item;
+import com.example.redrock.agriculture.widget.ListItem.Item;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by REDROCK on 11/29/2015.
